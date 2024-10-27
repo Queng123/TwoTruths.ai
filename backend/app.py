@@ -70,22 +70,14 @@ def infos():
 
     preprompt = """
         instructions:
-        Annotate this article line by line and show us if it's right or left oriented.
-        provide the orientation, from 0% to 100% (0% being the most left-leaning and 100% being the most right-leaning)
+        Analyse the provided article and show us if it's right or left oriented.
         At the end, provide the global orientation, from 0% to 100% (0% being the most left-leaning and 100% being the most right-leaning)
-        Please pick the two polarzied sided this next text information and review the content directly.  List them in a table.  Then pick the top three adjectives describing the each of the two sides.  Then based on what you absorbed, explain whether this article is baised against any of the sides.;
+
+
         response_template:
-        "line"
-        - analysis, orientation percentage
-        "line"
-        - analysis, orientation percentage
-        ......
-        "line"
-        - analysis, orientation percentage
+        text
 
         global orientation
-
-        
     """
 
     template = """
@@ -96,12 +88,87 @@ def infos():
     """
 
     llm = ChatOpenAI(model="gpt-4o-mini")
-    
+
     prompt_template = PromptTemplate(input_variables=["preprompt", "article"], template=template)
     chain = LLMChain(llm=llm, prompt=prompt_template)
     prompt = prompt_template.format(preprompt=preprompt, article=article)
-    output = chain.run({"preprompt": prompt, "article": article})
-    return jsonify({'message': output})
+    all_text = chain.run({"preprompt": prompt, "article": article})
+
+    template = """
+    {preprompt}
+
+    previous analysis:
+    {previous_analysis}
+
+    article:
+    {article}
+    """
+
+    preprompt = """
+    Based on the provided analysis,
+    Please pick the two polarzied sided.
+    Then clearly label the first side as "side 1" and the second side as "side 2."
+    Just clearly name the sides with one clear word, related to the topic.
+    Then List them without formatting or any additional information.
+    example:
+    side 1: "side 1"
+    side 2: "side 2"
+    """
+
+    prompt_template = PromptTemplate(input_variables=["preprompt", "previous_analysis", "article"], template=template)
+    chain = LLMChain(llm=llm, prompt=prompt_template)
+    prompt = prompt_template.format(preprompt=preprompt, previous_analysis=all_text, article=article)
+    two_sides = chain.run({"preprompt": prompt, "previous_analysis": all_text, "article": article})
+
+    template = """
+    {preprompt}
+
+    previous analysis:
+    {previous_analysis}
+
+    original article:
+    {article}
+    """
+
+
+    preprompt = """
+    based on the previous analysis
+    Pick the top three adjectives describing the each of the two sides and also list them in a table.
+    Use the adjective from the original article.
+    Then clearly label the first side as "side 1" and the second side as "side 2."
+    Then provide the adjectives without any additional information or formatting (no table or bullet points).
+    example:
+    side 1: "adjective 1", "adjective 2", "adjective 3"
+    side 2: "adjective 1", "adjective 2", "adjective 3"
+    """
+
+    prompt_template = PromptTemplate(input_variables=["preprompt", "previous_analysis", "article"], template=template)
+    chain = LLMChain(llm=llm, prompt=prompt_template)
+    prompt = prompt_template.format(preprompt=preprompt, previous_analysis=all_text, article=article)
+    adjectives = chain.run({"preprompt": prompt, "previous_analysis": all_text, "article": article})
+
+    template = """
+    {preprompt}
+
+    previous analysis:
+    {previous_analysis}
+
+    article:
+    {article}
+    """
+
+    preprompt = """
+    based on the previous analysis
+    explain whether this article is baised against any of the sides in a summary fashion.
+    do not add any formatting to your response.
+    """
+
+    prompt_template = PromptTemplate(input_variables=["preprompt", "previous_analysis", "article"], template=template)
+    chain = LLMChain(llm=llm, prompt=prompt_template)
+    prompt = prompt_template.format(preprompt=preprompt, previous_analysis=all_text, article=article)
+    bias = chain.run({"preprompt": prompt, "previous_analysis": all_text, "article": article})
+
+    return jsonify({'two_sides': two_sides, 'adjectives': adjectives, 'bias': bias})
 
 if __name__ == '__main__':
     app.run(debug=True)
