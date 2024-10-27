@@ -126,6 +126,9 @@ def infos():
     previous analysis:
     {previous_analysis}
 
+    sides:
+    {two_sides}
+
     original article:
     {article}
     """
@@ -142,10 +145,10 @@ def infos():
     side 2: "adjective 1", "adjective 2", "adjective 3"
     """
 
-    prompt_template = PromptTemplate(input_variables=["preprompt", "previous_analysis", "article"], template=template)
+    prompt_template = PromptTemplate(input_variables=["preprompt", "two_sides", "previous_analysis", "article"], template=template)
     chain = LLMChain(llm=llm, prompt=prompt_template)
-    prompt = prompt_template.format(preprompt=preprompt, previous_analysis=all_text, article=article)
-    adjectives = chain.run({"preprompt": prompt, "previous_analysis": all_text, "article": article})
+    prompt = prompt_template.format(preprompt=preprompt, two_sides=two_sides, previous_analysis=all_text, article=article)
+    adjectives = chain.run({"preprompt": prompt, "two_sides": two_sides, "previous_analysis": all_text, "article": article})
 
     template = """
     {preprompt}
