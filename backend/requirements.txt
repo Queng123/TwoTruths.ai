@@ -1,1 +1,8 @@
 flask
+logging
+openai
+python-dotenv
+langchain_community
+flask_cors
+goose3
+lxml_html_clean
