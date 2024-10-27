@@ -69,9 +69,23 @@ def infos():
     article = g.extract(url=url).cleaned_text
 
     preprompt = """
-        tell me if this website has an oriented article, and tell me why
-        also, if it's oriented, provide the orientation, from 0% to 100% (0% being the most left-leaning and 100% being the most right-leaning)
-        output as a json object, with the keys "reason", and "orientation"
+        instructions:
+        Annotate this article line by line and show us if it's right or left oriented.
+        provide the orientation, from 0% to 100% (0% being the most left-leaning and 100% being the most right-leaning)
+        At the end, provide the global orientation, from 0% to 100% (0% being the most left-leaning and 100% being the most right-leaning)
+        Please pick the two polarzied sided this next text information and review the content directly.  List them in a table.  Then pick the top three adjectives describing the each of the two sides.  Then based on what you absorbed, explain whether this article is baised against any of the sides.;
+        response_template:
+        "line"
+        - analysis, orientation percentage
+        "line"
+        - analysis, orientation percentage
+        ......
+        "line"
+        - analysis, orientation percentage
+
+        global orientation
+
+        
     """
 
     template = """
