@@ -1,0 +1,162 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 300px;
+  max-height: 800px;
+  display: flex;
+  justify-content: center;
+  background-color: #f9f9f9;
+  overflow: hidden;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+#infoBtn {
+  background-color: #0070f3;
+  margin-bottom: 20px;
+}
+
+#infoBtn:hover {
+  background-color: #005bb5;
+}
+
+#rewriteBtn {
+  background-color: #f39c12;
+  margin-bottom: 20px;
+}
+
+#rewriteBtn:hover {
+  background-color: #e67e22;
+}
+
+.info-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.side-container, .adjectives-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.tab-title-container {
+  display: flex;
+  width: 100%;
+}
+
+.active-info .info-container {
+  display: flex;
+}
+
+#side1, #side2, #adjectives1, #adjectives2, #tab1, #tab2 {
+  width: 48%;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#tab1, #tab2 {
+  background-color: #d3d3d3;
+  border-radius: 0 0 0 0;
+  margin-bottom: 0;
+  margin-top: 0px;
+}
+
+#side1 {
+  background-color: #c6e1ff;
+  border-radius: 15px 0 0 0;
+  margin-bottom: 0;
+}
+
+#adjectives1 {
+  background-color: #b3e0ff;
+  border-radius: 0 0 15px 0;
+  margin-top: -10px;
+}
+
+#side2 {
+  background-color: #f2b2b2;
+  border-radius: 0 15px 0 0;
+  margin-bottom: 0;
+}
+
+#adjectives2 {
+  background-color: #ffb2b2;
+  border-radius: 0 0 0 15px;
+  margin-top: -10px;
+}
+
+
+#response {
+  display: none;
+  background-color: #ffffff;
+  color: #333;
+  padding: 15px;
+  margin-top: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#response::-webkit-scrollbar {
+  display: none;
+}
+
+.active-rewrite #response, .active-info #response {
+  display: block;
+}
+
+.title-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 3px;
+}
+
+#title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: left;
+  margin: 0;
+}
+
+#logo {
+  width: 100%;
+  max-width: 2  50px;
+  display: block;
+  margin: 20px auto;
+
+}
+
+#slogan {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+}

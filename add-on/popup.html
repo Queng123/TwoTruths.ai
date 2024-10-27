@@ -4,11 +4,33 @@
   <meta charset="UTF-8" />
   <title>Info & Rewrite</title>
   <script src="popup.js" defer></script>
+  <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
   <div>
-    <button id="infoBtn">Info</button>
-    <button id="rewriteBtn">Rewrite</button>
+    <img id="logo" src="images/Twotruths.png" alt="Logo" />
+    <div class="button-container">
+      <button id="infoBtn">Analyze</button>
+      <button id="rewriteBtn">Rewrite</button>
+    </div>
+    <p id="slogan">Let the facts speak for themselves</p>
+    <div class="info-container">
+      <div class="side-container">
+        <p id="side1">Side 1</p>
+        <p id="side2">Side 2</p>
+      </div>
+      <div class="tab-title-container">
+        <p id="tab1">Top Adjectives:</p>
+        <p id="tab2">Top Adjectives:</p>
+      </div>
+      <div class="adjectives-container">
+        <p id="adjectives1">Adjectives 1</p>
+        <p id="adjectives2">Adjectives 2</p>
+      </div>
+      <div class="title-container">
+        <p id="title">Bias Analysis:</p>
+      </div>
+    </div>
     <p id="response"></p>
   </div>
 </body>
