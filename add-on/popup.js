@@ -26,6 +26,13 @@ document.getElementById("infoBtn").addEventListener("click", async () => {
       document.getElementById("adjectives1").innerHTML = adjectives1.replace("side 1: ", "").replaceAll("\"", "").replace(/, /g, "<br>").trim();
       document.getElementById("adjectives2").innerHTML = adjectives2.replaceAll("\"", "").replace(/, /g, "<br>").trim();
 
+      const [verbs1, verbs2] = data.verbs.split("side 2: ").map(s => s.trim());
+      document.getElementById("verbs1").innerHTML = verbs1.replace("side 1: ", "").replaceAll("\"", "").replace(/, /g, "<br>").trim();
+      document.getElementById("verbs2").innerHTML = verbs2.replaceAll("\"", "").replace(/, /g, "<br>").trim();
+
+      const [verbs_act1, verbs_act2] = data.verbs_act.split("side 2: ").map(s => s.trim());
+      document.getElementById("verbs_act1").innerHTML = verbs_act1.replace("side 1: ", "").replaceAll("\"", "").replace(/, /g, "<br>").trim();
+      document.getElementById("verbs_act2").innerHTML = verbs_act2.replaceAll("\"", "").replace(/, /g, "<br>").trim();
 
       document.getElementById("response").textContent = `${data.bias}`;
       document.body.classList.toggle('active-info');

@@ -60,6 +60,13 @@ button {
   margin-top: 10px;
 }
 
+.verbs-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: -17px;
+}
+
 .tab-title-container {
   display: flex;
   width: 100%;
@@ -69,7 +76,7 @@ button {
   display: flex;
 }
 
-#side1, #side2, #adjectives1, #adjectives2, #tab1, #tab2 {
+#side1, #side2, #adjectives1, #adjectives2, #tab1, #tab2, #verbs1, #verbs2, #verbs_act1, #verbs_act2 {
   width: 48%;
   font-size: 1rem;
   text-align: center;
@@ -88,10 +95,23 @@ button {
   margin-bottom: 0;
 }
 
+#verbs1 {
+  background-color: #c6e1ff;
+  border-radius: 0 0 0 0;
+  margin-bottom: 0;
+}
+
+#verbs_act1 {
+  background-color: #c6e1ff;
+  border-radius: 0 0 0 15px;
+  margin-bottom: 10px;
+}
+
 #adjectives1 {
   background-color: #b3e0ff;
-  border-radius: 0 0 15px 0;
+  border-radius: 0 0 0 0;
   margin-top: -10px;
+  margin-bottom: 0;
 }
 
 #side2 {
@@ -100,10 +120,23 @@ button {
   margin-bottom: 0;
 }
 
+#verbs2 {
+  background-color: #f2b2b2;
+  border-radius: 0 0 0 0;
+  margin-bottom: 0;
+}
+
+#verbs_act2 {
+  background-color: #f2b2b2;
+  border-radius: 0 0 15px 0;
+  margin-bottom: 10px;
+}
+
 #adjectives2 {
   background-color: #ffb2b2;
-  border-radius: 0 0 0 15px;
+  border-radius: 0 0 0 0;
   margin-top: -10px;
+  margin-bottom: 0;
 }
 
 

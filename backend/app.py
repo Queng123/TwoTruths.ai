@@ -171,7 +171,65 @@ def infos():
     prompt = prompt_template.format(preprompt=preprompt, previous_analysis=all_text, article=article)
     bias = chain.run({"preprompt": prompt, "previous_analysis": all_text, "article": article})
 
-    return jsonify({'two_sides': two_sides, 'adjectives': adjectives, 'bias': bias})
+    template = """
+    {preprompt}
+
+    previous analysis:
+    {previous_analysis}
+
+    sides:
+    {two_sides}
+
+    article:
+    {article}
+    """
+
+    preprompt = """
+    based on the previous analysis
+    Pick the top three passive action verbs used for what one side did to the other side
+    Use the passive action verbs from the original article.
+    Then clearly label the first side as "side 1" and the second side as "side 2."
+    Then first provide the passive action verbs without any additional information or formatting (no table or bullet points).
+    example:
+    side 1: "passive action verb 1", "passive action verb 2", "passive action verb 3"
+    side 2: "passive action verb 1", "passive action verb 2", "passive action verb 3"
+    """
+
+    prompt_template = PromptTemplate(input_variables=["preprompt", "two_sides", "previous_analysis", "article"], template=template)
+    chain = LLMChain(llm=llm, prompt=prompt_template)
+    prompt = prompt_template.format(preprompt=preprompt, two_sides=two_sides, previous_analysis=all_text, article=article)
+    verbs = chain.run({"preprompt": prompt, "two_sides": two_sides, "previous_analysis": all_text, "article": article})
+
+    template = """
+    {preprompt}
+
+    previous analysis:
+    {previous_analysis}
+
+    sides:
+    {two_sides}
+
+    article:
+    {article}
+    """
+
+    preprompt = """
+    based on the previous analysis
+    Pick the top three active action verbs used for what one side did to the other side
+    Use the active action verbs verbs from the original article.
+    Then clearly label the first side as "side 1" and the second side as "side 2."
+    provide the active action verbs without any additional information or formatting (no table or bullet points).
+    example:
+    side 1: "active action verb 1", "active action verb 2", "active action verb 3"
+    side 2: "active action verb 1", "active action verb 2", "active action verb 3" 
+    """
+
+    prompt_template = PromptTemplate(input_variables=["preprompt", "two_sides", "previous_analysis", "article"], template=template)
+    chain = LLMChain(llm=llm, prompt=prompt_template)
+    prompt = prompt_template.format(preprompt=preprompt, two_sides=two_sides, previous_analysis=all_text, article=article)
+    verbs_act = chain.run({"preprompt": prompt, "two_sides": two_sides, "previous_analysis": all_text, "article": article})
+
+    return jsonify({'two_sides': two_sides, 'adjectives': adjectives, 'bias': bias, 'verbs': verbs, 'verbs_act': verbs_act})
 
 if __name__ == '__main__':
     app.run(debug=True)
