@@ -13,6 +13,11 @@ pip install -r requirements.txt
 flask run --host=0.0.0.0 --port=5000
 ```
 
+add a `.env` file with the following content
+```
+OPENAI_API_KEY
+```
+
 Install and run ngrok:
 ```
 ngrok http http://localhost:5000 
